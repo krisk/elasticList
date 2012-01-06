@@ -1,1 +1,171 @@
-elasticList
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>elasticList</title>
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="https://raw.github.com/doodads/mustache.js/master/mustache.min.js"></script>
+    <script src="core/elasticlist.js"></script>
+    <link href="core/elasticlist.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="container">
+      <section id="content" style="width: 800px;">
+      </section>
+      <ul id="result">
+      </ul>
+    </div>
+
+  <script id="item_template" type="text/html">
+    <li>
+      <strong>{{Name}}</strong>
+      <span>{{Title}}</span>, <span>{{Company}}</span>
+      <br />
+      <strong>Phone: </strong><span>{{Phone}}</span>
+      <br />
+      <strong>Email: </strong><span>{{Email}}</span>
+    </li>
+  </script>
+
+  <script>
+    $(function() {
+      test();
+    })
+
+    function test() {
+
+          var data = {};
+          data.facets = [
+              { name: 'Prize', text: 'Prize' }
+              , { name: 'Gender', text: 'Gender' }
+              , { name: 'Country', text: 'Country' }
+          ];
+          data.items = [
+              {
+                  Id: 1
+                  , Name: 'Marie Curie'
+                  , Prize: ['Physics', 'Chemistry']
+                  , Gender: ['Female']
+                  , Country: ['France']
+              },
+              {
+                  Id: 2
+                  , Name: 'David J. Gross'
+                  , Prize: ['Physics', 'Medicine']
+                  , Gender: ['Male']
+                  , Country: 'USA'
+              },
+              {
+                  Id: 3
+                  , Name: 'Camillo Golgi'
+                  , Prize: ['Medicine']
+                  , Gender: ['Male']
+                  , Country: ['Italy']
+              },
+              {
+                 Id: 4
+                  , Name: 'Shiring Ebady'
+                  , Prize: ['Peace']
+                  , Gender: ['Female']
+                  , Country: ['Iran']
+              },
+              {
+                 Id: 4
+                  , Name: 'Richard Axel'
+                  , Prize: ['Medicine']
+                  , Gender: ['Male']
+                  , Country: ['USA']
+              },
+              {
+                 Id: 4
+                  , Name: 'Eric R. Kandel'
+                  , Prize: ['Medicine']
+                  , Gender: ['Male']
+                  , Country: ['USA']
+              },
+              {
+                 Id: 4
+                  , Name: 'Gerty Cori'
+                  , Prize: ['Medicine']
+                  , Gender: ['Male']
+                  , Country: ['USA']
+              },
+              {
+                 Id: 4
+                  , Name: 'Warner Heisenberg'
+                  , Prize: ['Physics']
+                  , Gender: ['Male']
+                  , Country: ['Germany']
+              },
+              {
+                 Id: 4
+                  , Name: 'Albert Einstein'
+                  , Prize: ['Physics']
+                  , Gender: ['Male']
+                  , Country: ['Germany']
+              },
+              {
+                 Id: 4
+                  , Name: 'Demond Tuty'
+                  , Prize: ['Peace']
+                  , Gender: ['Male']
+                  , Country: ['South Africa']
+              }
+          ];
+
+          function callback(result) {
+            console.log(result.map(function (o, key) {
+                return o.Name;
+            }));
+          }
+
+        var elastList = new ElasticList(data, document.getElementById('content'), callback);
+        var elastList2 = new ElasticList(data, document.getElementById('content'), {effect: 'accordion', showHeaders: false}, callback);
+
+        /*
+        var d = {
+          facets: [              
+              { name: 'Company', text: 'Company' }
+              , { name: 'Title', text: 'Title' }
+            ],
+          items: []
+        };
+        $('#names > li').each(function(index, item) {
+          var it = $(item)
+          d.items.push({
+            Id: index+1,
+            Name : it.find('span:nth-child(1)').text() + ' '+ it.find('span:nth-child(2)').text(),
+            Email : it.find('span:nth-child(3)').text(),
+            Company : it.find('span:nth-child(4)').text(),
+            Title : it.find('span:nth-child(5)').text(),
+            Phone: '111-111-1111'
+          });
+        });
+
+        var str = JSON.stringify(d);
+
+        console.log(str);
+        */
+
+        var resultSection = $('#result');
+        var itemTemplate = $('#item_template').html();
+
+        function callback(result) {
+          resultSection.html('');
+          $.each(result, function() {
+              resultSection.append(Mustache.to_html(itemTemplate, this));
+          })
+
+          console.log(result.map(function (o, key) {
+              return o.Name;
+          }));
+        }
+
+        $.getJSON('data.json', function(data) {
+            var elastList = new ElasticList(data, document.getElementById('content'), callback);
+        });
+
+        
+    }
+  </script>
+</html>

@@ -1,0 +1,144 @@
+body {
+    font-family: Helvetica,Arial,sans-serif;
+}
+#result {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#result li {
+    border-bottom: 1px dotted;
+    margin: 0;
+    padding: 5px;
+    width: 300px;
+}
+#result li strong:first-child {
+    display: block;
+}
+#result li span {
+    font-size: 11px;
+}
+#result li strong {
+    font-size: 11px;
+}
+
+.elasticList
+{
+  /*width: 685px;*/
+  padding: 0;
+  margin: 0;
+}
+.elasticList ul, .elasticList li 
+{
+    padding: 0;
+    margin: 0;
+}
+.elasticList
+{
+    list-style: none;
+}
+
+/* FACET */
+.elasticList > li
+{
+    width: 190px;
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid #CCCCCC;
+    border-left-width: 0;
+}
+.elasticList > li:first-child {
+    border-left-width: 1px;
+}
+
+/* CRITERIA container */
+.elasticList > li > div
+{
+    height: 160px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 11px;
+}
+
+/* CRITERIA list */
+.elasticList > li > div ul
+{
+    list-style: none;
+}
+
+/* HEADER */
+.elasticList > li > span
+{
+    background-color: #ECECEC;
+    border-bottom: 1px solid #CCCCCC;
+    color: #666666;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 20px;
+}
+
+/* CRITERION */
+.elasticList > li > div > ul > li
+{
+    background-color: White;
+    border-bottom: 1px dotted #CCCCCC;
+    color: #444444;
+    cursor: pointer;
+    line-height: 22px;
+    overflow: hidden;
+    padding-left: 5px;
+    padding-right: 5px;
+    position: relative;
+    text-shadow: 0 1px 1px #F6F6F6;
+}
+
+/* CRITERION Text */
+.elasticList > li > div > ul > li > span:first-child
+{
+    white-space:nowrap;
+    width:150px;
+    display:block;
+    float: left;
+    text-overflow:ellipsis;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    overflow:hidden;
+}
+
+/* CRITERION Count */
+.elasticList > li > div > ul > li > span:last-child
+{
+    float: right;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+/* CRITERION Selection */
+.elasticList > li > div > ul > li.highlighted
+{
+    background-color: rgb(251, 248, 183);
+}
+.elasticList > li > div > ul > li.selected
+{
+    background-color: rgb(250, 227, 19);
+}
+.elasticList > li > div > ul > li.transparent
+{
+    background-color: transparent;
+}
+
+/*
+.elasticList > li > div > ul > li:hover {
+    background-color: #EDF2F5
+}
+.elasticList > li > div > ul > li.highlighted:hover
+{
+    background-color: #E2DFA5;
+}
+.elasticList > li > div > ul > li.selected:hover
+{
+    background-color: #E5D012;
+}
+*/
