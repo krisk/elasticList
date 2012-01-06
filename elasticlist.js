@@ -1,4 +1,29 @@
-(function () {
+/**
+elasticList v1.0.0
+    
+Dual licensed under the MIT or GPL Version 2 licenses.
+
+Copyright (c) 2011 Kirollos Risk
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+(function ($) {
 
     "use strict";
     var ANIMATION_DURATION = 650;
@@ -20,7 +45,7 @@
 
         this._facets = data.facets;
         this._target = target;
-        this._options = jQuery.extend({}, ElasticList.defaultOptions, this._options);
+        this._options = $.extend({}, ElasticList.defaultOptions, this._options);
         this._facetMap = {};
         this._searchQuery = [];
         this._workingSearchQuery = [];     // list of all selected criteria (i.e. the ones we have clicked on).
@@ -145,18 +170,18 @@
                 });
             });
 
-            this.onSelectionChanged$proxy = jQuery.proxy(this.onSelectionChanged, this);
+            this.onSelectionChanged$proxy = $.proxy(this.onSelectionChanged, this);
 
             // build
             fragment = document.createDocumentFragment();
 
-            var width = Math.floor(100/this._facets.length);
+            //var width = Math.floor(100/this._facets.length);
 
             var fdraw = [];
             this.iterateFacets(function (facet) {
                 fct = new Facet(facet, this._data, this._options);
                 this._facetMap[facet.name] = fct;
-                jQuery(fct).bind('selectionChanged', this.onSelectionChanged$proxy);
+                $(fct).bind('selectionChanged', this.onSelectionChanged$proxy);
                 var d = fct.draw();
                 fdraw.push(d);
                 fragment.appendChild(d);
@@ -290,7 +315,7 @@
         this._container = document.createElement('li');
         this._selectedTotal = 0;
         this._sortedCritiera;
-        this._$ = jQuery(this);
+        this._$ = $(this);
     }
     Facet.prototype = {
         iterateCriteria: function (fn) {
@@ -323,9 +348,9 @@
             }
 
             this._listContainer = document.createElement('div');
-            this._$listContainer = jQuery(this._listContainer);
+            this._$listContainer = $(this._listContainer);
 
-            jQuery(ul).bind('click', $.proxy(this.onCriterionClick, this));
+            $(ul).bind('click', $.proxy(this.onCriterionClick, this));
 
             this.iterateCriteria(function (criterion, index) {
                 li = document.createElement('li');
@@ -341,8 +366,8 @@
 
                 liFragment.appendChild(li);
 
-                criterion.dom = jQuery(li);
-                criterion.countNode = jQuery(count);
+                criterion.dom = $(li);
+                criterion.countNode = $(count);
             });
 
             ul.appendChild(liFragment);
@@ -560,7 +585,7 @@
             this._selectedTotal = 0;
         },
         onCriterionClick: function (e) {
-            var id = parseInt(jQuery(e.target).closest('li').attr('data-cid')),
+            var id = parseInt($(e.target).closest('li').attr('data-cid')),
                 criterion = this._data.criteria[id];
 
             criterion.__selected = !criterion.__selected;
@@ -604,4 +629,4 @@
     Object.seal(ElasticList.defaultOptions);
     
     window.ElasticList = ElasticList;
-})();
+})(jQuery);
