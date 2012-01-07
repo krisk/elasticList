@@ -10,20 +10,20 @@
   </head>
   <body>
     <div id="container">
-      <section id="content" style="width: 800px;">
+      <section id="example_1" style="width: 800px;">
       </section>
       <ul id="result">
       </ul>
+      <section id="example_2" style="width: 800px;">
+      </section>
     </div>
 
   <script id="item_template" type="text/html">
     <li>
       <strong>{{Name}}</strong>
-      <span>{{Title}}</span>, <span>{{Company}}</span>
+      <strong>Prize: </strong><span>{{Prize}}</span>
       <br />
-      <strong>Phone: </strong><span>{{Phone}}</span>
-      <br />
-      <strong>Email: </strong><span>{{Email}}</span>
+      <strong>Country: </strong><span>{{Country}}</span>
     </li>
   </script>
 
@@ -119,34 +119,6 @@
             }));
           }
 
-        var elastList = new ElasticList(data, document.getElementById('content'), callback);
-        var elastList2 = new ElasticList(data, document.getElementById('content'), {effect: 'accordion', showHeaders: false}, callback);
-
-        /*
-        var d = {
-          facets: [              
-              { name: 'Company', text: 'Company' }
-              , { name: 'Title', text: 'Title' }
-            ],
-          items: []
-        };
-        $('#names > li').each(function(index, item) {
-          var it = $(item)
-          d.items.push({
-            Id: index+1,
-            Name : it.find('span:nth-child(1)').text() + ' '+ it.find('span:nth-child(2)').text(),
-            Email : it.find('span:nth-child(3)').text(),
-            Company : it.find('span:nth-child(4)').text(),
-            Title : it.find('span:nth-child(5)').text(),
-            Phone: '111-111-1111'
-          });
-        });
-
-        var str = JSON.stringify(d);
-
-        console.log(str);
-        */
-
         var resultSection = $('#result');
         var itemTemplate = $('#item_template').html();
 
@@ -161,10 +133,8 @@
           }));
         }
 
-        $.getJSON('data.json', function(data) {
-            var elastList = new ElasticList(data, document.getElementById('content'), callback);
-        });
-
+        var elastList = new ElasticList(data, document.getElementById('example_1'), callback);
+        var elastList2 = new ElasticList(data, document.getElementById('example_2'), {effect: 'accordion'});
         
     }
   </script>
